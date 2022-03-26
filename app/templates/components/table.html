@@ -1,0 +1,36 @@
+<table class="table" style="width: 100%">
+    <thead>
+    <tr>
+        <th scope="col">Description</th>
+        <th scope="col">#</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for task in tasks | reverse %}
+    <tr>
+    {% if status == 'active'%}
+        <td>{{ task.description }}</td>
+        <td>
+            <button type="button" class="btn btn-outline-primary" id="finish" onclick="makePatch({{ task.id | int }})">finish</button>
+        </td>
+    {% elif status == 'non-active' %}
+        <td>{{ task.description }}</td>
+        <td>
+            <button type="button" class="btn btn-outline-secondary disabled">finished</button>
+        </td>
+    {% else %}
+        <td>{{ task.description }}</td>
+        <td>
+            {% if not task.is_active %}
+                <button type="button" class="btn btn-outline-secondary disabled">finished</button>
+            {% else %}
+                <button type="button" class="btn btn-outline-primary" id="finish" onclick="makePatch({{ task.id | int }})">finish</button>
+            {% endif %}
+        </td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
